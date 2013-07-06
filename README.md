@@ -1,4 +1,4 @@
-# TipsanityMerchantExtractor [![Build Status](https://www.travis-ci.org/umeshblader3/TipsanityMerchantExtractor)](https://www.travis-ci.org/umeshblader3/TipsanityMerchantExtractor)
+# TipsanityMerchantExtractor [![Build Status](https://www.travis-ci.org/umeshblader3/TipsanityMerchantExtractor.png)](https://www.travis-ci.org/umeshblader3/TipsanityMerchantExtractor)
 
 TODO: Write a gem description
 
