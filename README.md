@@ -18,7 +18,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Initiate a file with config/initializers/asin.rb
+
+ASIN::Configuration.configure do |config|
+  config.secret         = 'your secret'
+  config.key            = 'your key'
+  config.associate_tag  = 'your tag provided by amazon'
+  config.version = 'version provided by amazon' # every details you can simply get from amazon profile.  
+end
+
+require 'httpi'
+HTTPI.adapter = :httpclient
+HTTPI.logger  = Rails.logger
+
+Then start server and have some basic test.
 
 ## Contributing
 
