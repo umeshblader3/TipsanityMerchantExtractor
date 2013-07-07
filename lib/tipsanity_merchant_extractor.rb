@@ -1,6 +1,8 @@
 require "tipsanity_merchant_extractor/version"
 require 'uri'
-require File.join(File.dirname(File.expand_path(__FILE__)), 'asin_configuration')
+$LOAD_PATH <<	'./lib'
+
+require 'asin_configuration'
 
 module TipsanityMerchantExtractor
 	module UrlFormatter
