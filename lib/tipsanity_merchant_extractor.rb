@@ -2,7 +2,7 @@ require "tipsanity_merchant_extractor/version"
 require 'uri'
 # $LOAD_PATH << './lib'
 
-require 'asin_configuration'
+# require 'asin_configuration'
 
 module TipsanityMerchantExtractor
   module UrlFormatter
