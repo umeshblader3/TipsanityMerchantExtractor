@@ -1,7 +1,7 @@
 require "tipsanity_merchant_extractor/version"
 require 'uri'
 
-require 'asin_configuration'
+# require 'asin_configuration'
 
 module TipsanityMerchantExtractor
   module UrlFormatter
