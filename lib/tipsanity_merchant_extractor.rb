@@ -1,6 +1,5 @@
 require "tipsanity_merchant_extractor/version"
 require 'uri'
-# $LOAD_PATH << './lib'
 
 # require 'asin_configuration'
 
@@ -42,7 +41,8 @@ module TipsanityMerchantExtractor
                   :expiry_date,
                   :currency_code,
                   :image_url,
-                  :details_url
+                  :details_url,
+                  :is_dp
 
     def initialize merchant_url
       @merchant_url = UrlFormatter.format_url merchant_url
@@ -53,7 +53,7 @@ module TipsanityMerchantExtractor
         client = ASIN::Client.instance
         product = client.lookup filtered_asin_from_amazon_path
         @product_name = product.first.title
-        @description = product.first.review
+        filtered_asin_from_amazon_path{|is_dp| is_dp == false} ? @description = product.first.review : @description = product.first.raw.EditorialReviews.EditorialReview.first.Content 
         @list_price = product.first.amount.to_f/100 || product.first.raw.ItemAttributes.ListPrice.Amount.to_f/100
         @currency_code = product.first.raw.ItemAttributes.ListPrice.CurrencyCode
         @expiry_date = Date.today
@@ -93,9 +93,19 @@ module TipsanityMerchantExtractor
     def filtered_asin_from_amazon_path
       split_path = merchant_amazon_path.split('/')
       if split_path.include? 'gp'
-        asin = split_path[split_path.index('gp')+2]
+        if block_given?
+          @is_dp = false
+          yield @is_dp
+        else
+          asin = split_path[split_path.index('gp')+2]
+        end
       elsif split_path.include? 'dp'
-        asin = split_path[split_path.index('dp')+1]
+        if block_given?
+          @is_dp = true
+          yield @is_dp
+        else
+          asin = split_path[split_path.index('dp')+1]
+        end
       else
         "path does not have asin"
       end

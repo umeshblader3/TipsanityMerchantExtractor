@@ -54,5 +54,9 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 			@tipsanity_instance.product_name.should eq("Inferno: A Novel (Robert Langdon)")
 		end
 		
+		# it "must give the product details" do
+		# 	@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/Inferno-Novel-Robert-Langdon-ebook/dp/B00AXIZ4TQ/ref=pd_rhf_gw_s_ts_1_N8P4?ie=UTF8&refRID=0S1YP6CNWXFVPB12N8P4"
+		# 	@tipsanity_instance.description.should eq("Inferno: A Novel (Robert Langdon)")
+		# end
 	end
 end
