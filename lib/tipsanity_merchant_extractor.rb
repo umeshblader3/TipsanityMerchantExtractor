@@ -53,12 +53,14 @@ module TipsanityMerchantExtractor
         client = ASIN::Client.instance
         product = client.lookup filtered_asin_from_amazon_path
         @product_name = product.first.title
-        filtered_asin_from_amazon_path{|is_dp| is_dp == false} ? @description = product.first.raw.EditorialReviews.EditorialReview.Content : @description = product.first.raw.EditorialReviews.EditorialReview.first.Content 
+        # filtered_asin_from_amazon_path{|is_dp| is_dp == false} ? @description = product.first.raw.EditorialReviews.EditorialReview.Content : @description = product.first.raw.EditorialReviews.EditorialReview.first.Content 
+        @description = (product.first.raw.EditorialReviews.EditorialReview.kind_of?(Array) ? product.first.raw.EditorialReviews.EditorialReview.first.Content : product.first.raw.EditorialReviews.EditorialReview.Content)
         @list_price = product.first.amount.to_f/100 || product.first.raw.ItemAttributes.ListPrice.Amount.to_f/100
         @currency_code = product.first.raw.ItemAttributes.ListPrice.CurrencyCode
         @expiry_date = Date.today
         @image_url = product.first.image_url || product.first.raw.ImageSets.ImageSet.LargeImage.URL
         @details_url = product.first.details_url
+        @final_price = product.first.raw.include?("OfferSummary") ? product.first.raw.OfferSummary.LowestNewPrice.Amount.to_f/100 : "0.00".to_f
 
       end
     end
