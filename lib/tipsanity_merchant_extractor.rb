@@ -43,6 +43,7 @@ module TipsanityMerchantExtractor
                   :image_url,
                   :details_url,
                   :is_dp
+                  :categories
 
     def initialize merchant_url
       @merchant_url = UrlFormatter.format_url merchant_url
@@ -61,7 +62,7 @@ module TipsanityMerchantExtractor
         @image_url = product.first.image_url || product.first.raw.ImageSets.ImageSet.LargeImage.URL
         @details_url = product.first.details_url
         @final_price = product.first.raw.include?("OfferSummary") ? product.first.raw.OfferSummary.LowestNewPrice.Amount.to_f/100 : "0.00".to_f
-
+        @categories = product.first.raw.ItemAttributes.Binding
       end
     end
     
