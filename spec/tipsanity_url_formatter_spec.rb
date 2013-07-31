@@ -11,9 +11,12 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 		end
 
 		it "says who is the marchant for amazon" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			@tipsanity_instance.who_is_merchant.should eq("www.amazon.com")
+			TipsanityMerchantExtractor::AttributeExtractor.who_is_merchant("http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846").should eq("www.amazon.com")
 		end
+
+		# it "says available merchant" do
+		# 	TipsanityMerchantExtractor::AttributeExtractor::REGISTERED_MERCHANT.should eq('{:amazon=>"www.amazon.com", :cjunction=>{:bestbuy=>"www.bestbuy.com"}, :link_share=>"www.linkshare.com"}')
+		# end
 	end
 
 	describe "initialize attribute for url fro api" do
@@ -25,18 +28,18 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 
 	describe "amazon.com merchant initiator" do
 		it "is amazon.com" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			@tipsanity_instance.is_merchant_amazon?{}.should == true
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
+			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_amazon?("http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"){}.should == true
 		end
 
 		it "is not amazon.com" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.yahoo.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			@tipsanity_instance.is_merchant_amazon?{}.should == false
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.yahoo.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
+			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_amazon?("http://www.yahoo.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"){}.should == false
 		end
 
 		it "is path of amazon.com" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			@tipsanity_instance.merchant_amazon_path.should eq("/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05")
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
+			TipsanityMerchantExtractor::AttributeExtractor.merchant_amazon_path("http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846").should eq("/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05")
 		end
 
 		it "filter asin from given url" do
@@ -59,5 +62,24 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 			@tipsanity_instance.final_price.should eq(0.0)
 		end
 		
+		it "extract the query from best buy" do
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"
+			TipsanityMerchantExtractor::AttributeExtractor.extract_cj_bestbuy("http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"){|a, query| query}.should eq("id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1")
+		end
+
+		it "extract the product name from best buy" do
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"
+			TipsanityMerchantExtractor::AttributeExtractor.extract_cj_bestbuy("http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"){|product_name, query| product_name.gsub("+", " ")}.should eq("Lens and LCD Screen Cleaning Cloth")
+		end
+
+		it "extract sku from query of bestbuy.com" do
+			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"
+			TipsanityMerchantExtractor::AttributeExtractor.extract_cj_bestbuy("http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"){|product_name, query| CGI.parse(query)["skuId"].first}.should eq("6732119")
+		end
+
+		it "get the product name from bestbuy" do
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1", cj: {developer_key:"008dc8f793ca7bd35171100e2ea7376f514b9345bb6844e689d908bedfadada0c6b8fed3b766913fa22ffdd97553498816471aff50c82cc847dae723ce535dbbe7/008928dbd03df651b41c8322a5212070709d82c7d78703f85d6bf698e7bb9516cd13a1a429cb8e35989291e7a7bbc600db8913a7e4687257f805186af6dd6627b9", website_id: "7191286"}
+			@tipsanity_instance.product_name.should eql("DigiPower - Lens and LCD Screen Cleaning Cloth")
+		end
 	end
 end
