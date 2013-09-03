@@ -26,7 +26,7 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 		end
 	end
 
-	describe "amazon.com merchant initiator" do
+	describe "merchant initiator" do
 		it "is amazon.com" do
 			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
 			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_amazon?("http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"){}.should == true
@@ -38,13 +38,12 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 		end
 
 		it "is path of amazon.com" do
-			# @tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			TipsanityMerchantExtractor::AttributeExtractor.merchant_amazon_path("http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846").should eq("/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05")
+			TipsanityMerchantExtractor::AttributeExtractor.merchant_amazon_path("http://www.amazon.com/Zwipes-Microfiber-Cleaning-Cloths-36-Pack/dp/B000XECJES?SubscriptionId=AKIAIJUCUBHUHOAHW3TA&tag=tipsanity-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B000XECJES").should eq("/Zwipes-Microfiber-Cleaning-Cloths-36-Pack/dp/B000XECJES")
 		end
 
 		it "filter asin from given url" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/gp/product/B00CMQTVQO/ref=s9_pop_gw_g63_ir05?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-2&pf_rd_r=1B2CFTWGZGRQE19V8J1V&pf_rd_t=101&pf_rd_p=1263340922&pf_rd_i=507846"
-			@tipsanity_instance.filtered_asin_from_amazon_path.should eq("B00CMQTVQO")
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/Zwipes-Microfiber-Cleaning-Cloths-36-Pack/dp/B000XECJES?SubscriptionId=AKIAIJUCUBHUHOAHW3TA&tag=tipsanity-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B000XECJES"
+			@tipsanity_instance.filtered_asin_from_amazon_path.should eq("B000XECJES")
 		end
 
 		it "gets the product name from given url of amazon.com on the code gp" do
@@ -80,6 +79,24 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 		it "get the product name from bestbuy" do
 			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1", cj: {developer_key:"008dc8f793ca7bd35171100e2ea7376f514b9345bb6844e689d908bedfadada0c6b8fed3b766913fa22ffdd97553498816471aff50c82cc847dae723ce535dbbe7/008928dbd03df651b41c8322a5212070709d82c7d78703f85d6bf698e7bb9516cd13a1a429cb8e35989291e7a7bbc600db8913a7e4687257f805186af6dd6627b9", website_id: "7191286"}
 			@tipsanity_instance.product_name.should eql("DigiPower - Lens and LCD Screen Cleaning Cloth")
+		end
+
+		it "extract the product name from rakuten url" do	
+			TipsanityMerchantExtractor::AttributeExtractor.extract_linkshare("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eql("Agptek Android Quad Core Hd Screen With")
+		end
+
+		it "call linkshare for rakuten to get product name" do
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+			@tipsanity_instance.product_name.should eql(" 7 AGPtek Android 4.2 Quad Core 1024*600 HD Screen with 1GB RAM HDMI 1080P Tablet + Audio Leather Case for Google Play eBook Reader 3D GAMES ")
+		end
+
+		it "gives the rakuten url" do
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+			@tipsanity_instance.details_url.should eql("http://affiliate.rakuten.com/link?id=B/IDdUgQ0Rg&offerid=288682.252830237&type=15&murl=http%3A%2F%2Fmambate.store.buy.com%2Fp%2F7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ram-hdmi%2F252830237.html")
+		end
+		it "check whether it is rekutan or not." do
+			# TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_rakuten?("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")
+			TipsanityMerchantExtractor::AttributeExtractor.who_is_merchant("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")
 		end
 	end
 end

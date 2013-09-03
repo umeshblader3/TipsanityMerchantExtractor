@@ -18,6 +18,11 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "asin"
+  gem.add_dependency "commission_junction"
+  gem.add_dependency "linkshare"
+  gem.add_dependency "nokogiri"
+  gem.add_dependency "nori"
+  gem.add_dependency "hashie"
 
   gem.add_dependency 'httpclient'
 
