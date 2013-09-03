@@ -197,13 +197,13 @@ module TipsanityMerchantExtractor
             product_hashie = Hashie::Mash.new product_details_hash
             if product_hashie.result.item
               @product_name = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.productname : product_hashie.result.item.productname
-              @description = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.description : product_hashie.result.item.description
+              @description = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.description.try(:long) : product_hashie.result.item.description.try(:long)
               @list_price = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.listprice : product_hashie.result.item.listprice
               @final_price = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.saleprice : product_hashie.result.item.saleprice
               # @currency_code = product.currency
               @image_url = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.imageurl : product_hashie.result.item.imageurl
               @details_url = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.linkurl : product_hashie.result.item.linkurl
-              @categories = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.category : product_hashie.result.item.category
+              @categories = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.category.try(:primary) : product_hashie.result.item.category.try(:primary)
               @response_object = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first : product_hashie.result.item
               @product_token = product_hashie.result.item.is_a?(Array) ? product_hashie.result.item.first.sku : product_hashie.result.item.sku
             else
