@@ -3,11 +3,11 @@ require "spec_helper"
 describe TipsanityMerchantExtractor::UrlFormatter do
 	describe "url package" do
 		it "add http:// if it is not privided" do
-			TipsanityMerchantExtractor::UrlFormatter.format_url("example.com").should eq("http://example.com")
+			TipsanityMerchantExtractor::AttributeExtractor.new("example.com").format_url.should eq("http://example.com")
 		end
 
 		it "display the message valid url" do
-			TipsanityMerchantExtractor::UrlFormatter.valid_url("https://example.com").should be_true
+			TipsanityMerchantExtractor::AttributeExtractor.new("https://example.com").valid_url.should be_true
 		end
 
 		it "says who is the marchant for amazon" do
@@ -42,8 +42,7 @@ describe TipsanityMerchantExtractor::UrlFormatter do
 		end
 
 		it "filter asin from given url" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.amazon.com/Zwipes-Microfiber-Cleaning-Cloths-36-Pack/dp/B000XECJES?SubscriptionId=AKIAIJUCUBHUHOAHW3TA&tag=tipsanity-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B000XECJES"
-			@tipsanity_instance.filtered_asin_from_amazon_path.should eq("B000XECJES")
+			TipsanityMerchantExtractor::AttributeExtractor.filtered_asin_from_amazon_path("http://www.amazon.com/Zwipes-Microfiber-Cleaning-Cloths-36-Pack/dp/B000XECJES?SubscriptionId=AKIAIJUCUBHUHOAHW3TA&tag=tipsanity-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=B000XECJES").should eq("B000XECJES")
 		end
 
 		it "gets the product name from given url of amazon.com on the code gp" do
