@@ -1,6 +1,6 @@
 module TipsanityMerchantExtractor
-	module BestBuy
-		def is_merchant_cj_bestbuy?(merchant_url)
+  module BestBuy
+    def is_merchant_cj_bestbuy?(merchant_url)
       if URI(merchant_url).host == RegisteredMerchantList::REGISTERED_MERCHANT[:cjunction][:bestbuy]
         block_given? ? true : RegisteredMerchantList::REGISTERED_MERCHANT[:cjunction][:bestbuy]
       else
@@ -20,9 +20,9 @@ module TipsanityMerchantExtractor
     end
 
     def find_product_best_buy merchant_url, cj
-    	product_name = extract_cj_bestbuy(merchant_url){|product_name| product_name}
+      product_name = extract_cj_bestbuy(merchant_url){|product_name| product_name}
       skuId = extract_cj_bestbuy(merchant_url){|product_name, query| CGI.parse(query)["skuId"].first}
       cj.product_search("keywords" => product_name, "advertiser-ids" => "notjoined", "advertiser-sku" => skuId).collect{|product| product}.first
     end
-	end
+  end
 end

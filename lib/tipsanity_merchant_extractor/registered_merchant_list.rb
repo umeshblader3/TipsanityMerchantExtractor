@@ -3,7 +3,8 @@ module TipsanityMerchantExtractor
 		REGISTERED_MERCHANT = {
 			amazon: "www.amazon.com",
 			cjunction: {
-				bestbuy: 'www.bestbuy.com'
+				bestbuy: 'www.bestbuy.com',
+				one_eight_thousand_lighting: 'www.1800lighting.com'
 			},
 			linkshare: [
 				{

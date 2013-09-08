@@ -1,6 +1,6 @@
 module TipsanityMerchantExtractor
 	class AttributeExtractor
-    include UrlFormatter
+    extend UrlFormatter
     [Amazon, LinkShare, Rakuten, BestBuy, Cj].each do |merchant|
     	extend merchant
     end
@@ -41,7 +41,7 @@ module TipsanityMerchantExtractor
     def initialize merchant_url, *args
       @options = args.extract_options!
       @url = merchant_url
-      @merchant_url = format_url
+      @merchant_url = self.class.format_url @url
       @host_provider = URI(@merchant_url).host
 
       case self.class.who_is_merchant(@merchant_url)

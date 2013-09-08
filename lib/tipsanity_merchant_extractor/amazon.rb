@@ -1,4 +1,5 @@
 # require 'asin_configuration'
+
 module TipsanityMerchantExtractor
 	module Amazon
     def self.extended(base)

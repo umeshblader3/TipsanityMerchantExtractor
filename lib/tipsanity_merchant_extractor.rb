@@ -12,6 +12,7 @@ module TipsanityMerchantExtractor
   autoload :Cj,                     'tipsanity_merchant_extractor/cj'
   autoload :Rakuten,                'tipsanity_merchant_extractor/rakuten'
   autoload :BestBuy,                'tipsanity_merchant_extractor/best_buy'
+  autoload :OneEightThousandLighting,'tipsanity_merchant_extractor/1800lighting'
 
 end
 

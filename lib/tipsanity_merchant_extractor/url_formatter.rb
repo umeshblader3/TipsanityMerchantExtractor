@@ -1,12 +1,12 @@
 require 'uri'
 module TipsanityMerchantExtractor
   module UrlFormatter
-    def format_url
-      URI.unescape @url
-      if @url.to_s !~ url_regexp && "http://#{@url}" =~ url_regexp
-        "http://#{@url.gsub(/\A[[:punct:]]*/,'')}"
+    def format_url url
+      URI.unescape url
+      if url.to_s !~ url_regexp && "http://#{url}" =~ url_regexp
+        "http://#{url.gsub(/\A[[:punct:]]*/,'')}"
       else
-        @url
+        url
       end
     end
 
@@ -14,8 +14,8 @@ module TipsanityMerchantExtractor
       /http:|https:/ #[http:|https:] means that any of the charactor inside [] is matching.
     end
 
-    def valid_url
-      if @url =~ url_regexp
+    def valid_url url
+      if url =~ url_regexp
         true
       else
         false

@@ -1,13 +1,13 @@
 require "spec_helper"
 
-describe TipsanityMerchantExtractor::UrlFormatter do
+describe TipsanityMerchantExtractor::AttributeExtractor do
 	describe "url package" do
 		it "add http:// if it is not privided" do
-			TipsanityMerchantExtractor::AttributeExtractor.new("example.com").format_url.should eq("http://example.com")
+			TipsanityMerchantExtractor::AttributeExtractor.format_url("example.com").should eq("http://example.com")
 		end
 
 		it "display the message valid url" do
-			TipsanityMerchantExtractor::AttributeExtractor.new("https://example.com").valid_url.should be_true
+			TipsanityMerchantExtractor::AttributeExtractor.valid_url("https://example.com").should be_true
 		end
 
 		it "says who is the marchant for amazon" do
