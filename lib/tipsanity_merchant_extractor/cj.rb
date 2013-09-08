@@ -15,9 +15,11 @@ module TipsanityMerchantExtractor
       cj = CommissionJunction.new(developer_key, website_id)
       case AttributeExtractor.who_is_merchant merchant_url
       when RegisteredMerchantList::REGISTERED_MERCHANT[:cjunction][:bestbuy]
-        yield find_product_best_buy(merchant_url, cj)
+        yield find_product_best_buy(merchant_url, cj, {"advertiser-ids" => "notjoined"})
+
       when RegisteredMerchantList::REGISTERED_MERCHANT[:cjunction][:one_eight_thousand_lighting]
-        yield find_product_one_eight_thousand_lighting(merchant_url, cj)
+        yield find_product_one_eight_thousand_lighting(merchant_url, cj, {"advertiser-ids" => "notjoined"})
+
       end
     end
 

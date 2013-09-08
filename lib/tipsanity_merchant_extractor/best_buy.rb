@@ -19,10 +19,10 @@ module TipsanityMerchantExtractor
       end
     end
 
-    def find_product_best_buy merchant_url, cj
+    def find_product_best_buy merchant_url, cj, options = {}
       product_name = extract_cj_bestbuy(merchant_url){|product_name| product_name}
       skuId = extract_cj_bestbuy(merchant_url){|product_name, query| CGI.parse(query)["skuId"].first}
-      cj.product_search("keywords" => product_name, "advertiser-ids" => "notjoined", "advertiser-sku" => skuId).collect{|product| product}.first
+      cj.product_search("keywords" => product_name, "advertiser-ids" => options["advertiser-ids"], "advertiser-sku" => skuId).collect{|product| product}.first
     end
   end
 end
