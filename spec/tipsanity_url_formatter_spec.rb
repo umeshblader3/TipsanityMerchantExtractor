@@ -75,23 +75,25 @@ describe TipsanityMerchantExtractor::AttributeExtractor do
 			TipsanityMerchantExtractor::AttributeExtractor.extract_cj_bestbuy("http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1"){|product_name, query| CGI.parse(query)["skuId"].first}.should eq("6732119")
 		end
 
-		it "get the product name from bestbuy" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1", cj: {developer_key:"008dc8f793ca7bd35171100e2ea7376f514b9345bb6844e689d908bedfadada0c6b8fed3b766913fa22ffdd97553498816471aff50c82cc847dae723ce535dbbe7/008928dbd03df651b41c8322a5212070709d82c7d78703f85d6bf698e7bb9516cd13a1a429cb8e35989291e7a7bbc600db8913a7e4687257f805186af6dd6627b9", website_id: "7191286"}
-			@tipsanity_instance.product_name.should eql("DigiPower - Lens and LCD Screen Cleaning Cloth")
-		end
+		# it "get the product name from bestbuy" do
+		# 	@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new "http://www.bestbuy.com/site/Lens+and+LCD+Screen+Cleaning+Cloth/6732119.p?id=1087340386022&skuId=6732119&st=6732119&cp=1&lp=1", cj: {developer_key:"008dc8f793ca7bd35171100e2ea7376f514b9345bb6844e689d908bedfadada0c6b8fed3b766913fa22ffdd97553498816471aff50c82cc847dae723ce535dbbe7/008928dbd03df651b41c8322a5212070709d82c7d78703f85d6bf698e7bb9516cd13a1a429cb8e35989291e7a7bbc600db8913a7e4687257f805186af6dd6627b9", website_id: "7191286"}
+		# 	@tipsanity_instance.product_name.should eql("DigiPower - Lens and LCD Screen Cleaning Cloth")
+		# end
 
 		it "extract the product name from rakuten url" do	
-			TipsanityMerchantExtractor::AttributeExtractor.extract_linkshare("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eql("Agptek Android Quad Core Hd Screen With")
+			TipsanityMerchantExtractor::AttributeExtractor.extract_linkshare("http://www.rakuten.com/prod/v7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate/247297348.html?sellerid=0").should eql("V Pas Extreme Guard Iphone Case Iphone")
+			#http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html is needed to analyse
+			# http://www.rakuten.com/prod/v7-vantage-ccv4-carrying-case-backpack-for-13-notebook-black-polyester/246418473.html?sellerid=0 is valid url for now.
 		end
 
-		it "call linkshare for rakuten to get product name" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
-			@tipsanity_instance.product_name.should eql(" 7 AGPtek Android 4.2 Quad Core 1024*600 HD Screen with 1GB RAM HDMI 1080P Tablet + Audio Leather Case for Google Play eBook Reader 3D GAMES ")
-		end
+		# it "call linkshare for rakuten to get product name" do
+		# 	@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+		# 	@tipsanity_instance.product_name.should eql(" 7 AGPtek Android 4.2 Quad Core 1024*600 HD Screen with 1GB RAM HDMI 1080P Tablet + Audio Leather Case for Google Play eBook Reader 3D GAMES ")
+		# end
 
 		it "gives the rakuten url" do
-			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
-			@tipsanity_instance.details_url.should eql("http://affiliate.rakuten.com/link?id=B/IDdUgQ0Rg&offerid=288682.252830237&type=15&murl=http%3A%2F%2Fmambate.store.buy.com%2Fp%2F7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ram-hdmi%2F252830237.html")
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://www.rakuten.com/prod/v7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate/247297348.html?sellerid=0", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+			@tipsanity_instance.details_url.should eql("http://affiliate.rakuten.com/fs-bin/click?id=B/IDdUgQ0Rg&subid=0&offerid=288682.1&type=10&tmpid=6932&RD_PARM1=http%3A%2F%2Fwww.rakuten.com%2Fprod%2Fv7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate%2F247297348.html%3Fsellerid%3D0")
 		end
 		it "check whether it is rekutan or not." do
 			# TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_rakuten?("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")

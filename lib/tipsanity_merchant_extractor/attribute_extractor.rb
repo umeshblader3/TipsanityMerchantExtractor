@@ -20,6 +20,7 @@ module TipsanityMerchantExtractor
                   :response_object,
                   :product_token,
                   :options
+                  :errors
 
     class << self
       def who_is_merchant(merchant_url)
@@ -43,7 +44,7 @@ module TipsanityMerchantExtractor
       @url = merchant_url
       @merchant_url = self.class.format_url @url
       @host_provider = URI(@merchant_url).host
-
+      @errors = []
       case self.class.who_is_merchant(@merchant_url)
       when RegisteredMerchantList::REGISTERED_MERCHANT[:amazon]
       	find_product_amazon @merchant_url
@@ -52,7 +53,7 @@ module TipsanityMerchantExtractor
       	find_product_cj @merchant_url
 
       when RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][0][:rakuten]
-        find_product_linkshare @merchant_url
+        find_product_rakuten @merchant_url, @options[:linkshare][:token], RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][0][:mid]
 
       else
         @product_name = nil
@@ -64,6 +65,7 @@ module TipsanityMerchantExtractor
         @details_url = nil
         @final_price = nil
         @categories = nil
+        @errors << "Unable to retrive from api"
       end
     end
   end
