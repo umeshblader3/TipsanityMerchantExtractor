@@ -95,6 +95,12 @@ describe TipsanityMerchantExtractor::AttributeExtractor do
 			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://www.rakuten.com/prod/v7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate/247297348.html?sellerid=0", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
 			@tipsanity_instance.details_url.should eql("http://affiliate.rakuten.com/fs-bin/click?id=B/IDdUgQ0Rg&subid=0&offerid=288682.1&type=10&tmpid=6932&RD_PARM1=http%3A%2F%2Fwww.rakuten.com%2Fprod%2Fv7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate%2F247297348.html%3Fsellerid%3D0")
 		end
+
+		it "gives the rakuten price" do
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://www.rakuten.com/prod/v7-pa19s-extreme-guard-iphone-5-case-iphone-white-polycarbonate/247297348.html?sellerid=0", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+			@tipsanity_instance.final_price.should eql(10.46)
+		end
+
 		it "check whether it is rekutan or not." do
 			# TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_rakuten?("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")
 			TipsanityMerchantExtractor::AttributeExtractor.who_is_merchant("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")

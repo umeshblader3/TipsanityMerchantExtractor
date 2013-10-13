@@ -27,8 +27,8 @@ module TipsanityMerchantExtractor
             scraped_screen = Nokogiri::HTML(open(merchant_url))
             @product_name = scraped_screen.search('#AuthorArtistTitle_productTitle').first.text
             @description = scraped_screen.search('#divDescription').first.text
-            @list_price = scraped_screen.search('#spanMainListPrice').first.text.gsub(/$/, "").to_i
-            @final_price = scraped_screen.search('#spanMainTotalPrice').first.text.gsub(/$/, "").to_i
+            @list_price = scraped_screen.search('#spanMainListPrice').first.text.gsub(/[$]/, "").to_f
+            @final_price = scraped_screen.search('#spanMainTotalPrice').first.text.gsub(/[$]/, "").to_f
             @image_url = scraped_screen.search('#ImageVideo_ImageRepeater_ctl00_Image').first.attributes["src"].value
             buy_url = "http://getdeeplink.linksynergy.com/createcustomlink.shtml?token=#{token}&mid=#{mid}&murl=#{merchant_url}"
             @details_url = Nokogiri::HTML(open(buy_url)).search("p").text# it needs token to retrive buy url
