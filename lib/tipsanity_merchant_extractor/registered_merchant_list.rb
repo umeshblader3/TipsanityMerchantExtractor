@@ -12,7 +12,7 @@ module TipsanityMerchantExtractor
 					mid: 36342
 				},
 				{
-					tigerdirect: "www.tigerdirect.com",
+					tiger_direct: "www.tigerdirect.com",
 					mid: 14028
 				}
 			]

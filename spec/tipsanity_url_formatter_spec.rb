@@ -105,5 +105,17 @@ describe TipsanityMerchantExtractor::AttributeExtractor do
 			# TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_rakuten?("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")
 			TipsanityMerchantExtractor::AttributeExtractor.who_is_merchant("http://mambate.shop.rakuten.com/p/7-agptek-android-4-2-quad-core-1024-600-hd-screen-with-1gb-ddr3-4gb/251837691.html").should eq("www.rakuten.com")
 		end
+
+		it "checks whether it is tiger_direct url" do
+			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_tiger_direct?('http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=8208716&sku=A50-173318&cm_re=Homepage-_-Zone2_2-_-CatId_17_A50-173318'){}.should eq(true)
+			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_tiger_direct?('http://www.yahoo.com'){}.should eq(false)
+			TipsanityMerchantExtractor::AttributeExtractor.is_merchant_linkshare_tiger_direct?('http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=8208716&sku=A50-173318&cm_re=Homepage-_-Zone2_2-_-CatId_17_A50-173318').should eq("www.tigerdirect.com")
+		end
+
+		it "retrive api details from tiger direct" do
+			@tipsanity_instance = TipsanityMerchantExtractor::AttributeExtractor.new("http://www.tigerdirect.com/applications/SearchTools/item-details.asp?EdpNo=7876916&CatId=3616", linkshare:{token: "23bf03f93e1cbccd9009ab0b9128f2e57a6a245af6c2be5ebcfe6b7285ad9a79"})
+
+			@tipsanity_instance.list_price.should eql("229.95")
+		end
 	end
 end

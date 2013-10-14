@@ -26,5 +26,9 @@ module TipsanityMerchantExtractor
         return capitalized_product_name
       end
     end
+    def provide_buy_url(token, mid, merchant_url)
+      buy_url = "http://getdeeplink.linksynergy.com/createcustomlink.shtml?token=#{token}&mid=#{mid}&murl=#{merchant_url}"
+      Nokogiri::HTML(open(buy_url)).search("p").text
+    end
 	end
 end

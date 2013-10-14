@@ -1,7 +1,7 @@
 module TipsanityMerchantExtractor
 	class AttributeExtractor
     extend UrlFormatter
-    [Amazon, LinkShare, Rakuten, BestBuy, Cj].each do |merchant|
+    [Amazon, LinkShare, Rakuten, BestBuy, Cj, TigerDirect].each do |merchant|
     	extend merchant
     end
     
@@ -31,6 +31,8 @@ module TipsanityMerchantExtractor
           RegisteredMerchantList::REGISTERED_MERCHANT[:cjunction][:bestbuy]
         when is_merchant_linkshare_rakuten?(merchant_url)
           RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][0][:rakuten]
+        when is_merchant_linkshare_tiger_direct?(merchant_url)
+          RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][1][:tiger_direct]
         else
           "this merchant is not registered merchant with our system. Please recommend us to affliate with us."
           # URI(merchant_url).host
@@ -54,6 +56,9 @@ module TipsanityMerchantExtractor
 
       when RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][0][:rakuten]
         find_product_rakuten @merchant_url, @options[:linkshare][:token], RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][0][:mid]
+
+      when RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][1][:tiger_direct]
+        find_product_tiger_direct @merchant_url, @options[:linkshare][:token], RegisteredMerchantList::REGISTERED_MERCHANT[:linkshare][1][:mid]
 
       else
         @product_name = nil

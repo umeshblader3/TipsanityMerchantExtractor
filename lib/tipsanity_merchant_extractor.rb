@@ -4,15 +4,16 @@ require 'nori'
 require 'nokogiri'
 
 module TipsanityMerchantExtractor
-  autoload :UrlFormatter,           'tipsanity_merchant_extractor/url_formatter'
-  autoload :AttributeExtractor,     'tipsanity_merchant_extractor/attribute_extractor'
-  autoload :Amazon,                 'tipsanity_merchant_extractor/amazon'
-  autoload :RegisteredMerchantList, 'tipsanity_merchant_extractor/registered_merchant_list'
-  autoload :LinkShare,              'tipsanity_merchant_extractor/linkshare'
-  autoload :Cj,                     'tipsanity_merchant_extractor/cj'
-  autoload :Rakuten,                'tipsanity_merchant_extractor/rakuten'
-  autoload :BestBuy,                'tipsanity_merchant_extractor/best_buy'
-  autoload :OneEightThousandLighting,'tipsanity_merchant_extractor/1800lighting'
+  autoload :UrlFormatter,             'tipsanity_merchant_extractor/url_formatter'
+  autoload :AttributeExtractor,       'tipsanity_merchant_extractor/attribute_extractor'
+  autoload :Amazon,                   'tipsanity_merchant_extractor/amazon'
+  autoload :RegisteredMerchantList,   'tipsanity_merchant_extractor/registered_merchant_list'
+  autoload :LinkShare,                'tipsanity_merchant_extractor/linkshare'
+  autoload :Cj,                       'tipsanity_merchant_extractor/cj'
+  autoload :Rakuten,                  'tipsanity_merchant_extractor/rakuten'
+  autoload :BestBuy,                  'tipsanity_merchant_extractor/best_buy'
+  autoload :OneEightThousandLighting, 'tipsanity_merchant_extractor/1800lighting'
+  autoload :TigerDirect,              'tipsanity_merchant_extractor/tiger_direct'
 
 end
 
