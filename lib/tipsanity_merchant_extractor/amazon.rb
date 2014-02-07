@@ -61,7 +61,7 @@ module TipsanityMerchantExtractor
           @expiry_date = Date.today
           @image_url = product.first.image_url || product.first.raw.ImageSets.ImageSet.LargeImage.URL
           @details_url = product.first.details_url
-          @final_price = product.first.raw.include?("OfferSummary") ? product.first.raw.OfferSummary.LowestNewPrice ? product.first.raw.OfferSummary.LowestNewPrice.Amount.to_f/100 : "0.00".to_f : "0.00".to_f
+          @final_price = product.first.raw.include?("OfferSummary") ? (product.first.raw.OfferSummary.LowestNewPrice ? product.first.raw.OfferSummary.LowestNewPrice.Amount.to_f/100 : nil) : nil
           @categories = product.first.raw.ItemAttributes.Binding
           @product_token = product.first.asin
         else

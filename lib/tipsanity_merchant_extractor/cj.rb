@@ -39,7 +39,14 @@ module TipsanityMerchantExtractor
             @response_object = product
             @product_token = self.class.extract_cj_bestbuy(@merchant_url){|product_name, query| CGI.parse(query)["skuId"].first}
           else
-            @product_name = @description = @list_price = @currency_code = @image_url = @details_url = @categories = @response_object = nil
+            @product_name = nil
+            @description = nil
+            @list_price = nil
+            @currency_code = nil
+            @image_url = nil
+            @details_url = nil
+            @categories = nil
+            @response_object = nil
           end
         end
       end
